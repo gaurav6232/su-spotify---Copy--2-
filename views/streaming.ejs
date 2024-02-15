@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title> 
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <div id="main">
+        <div class="left">
+            <button>
+                <i class="ri-home-4-fill"></i>
+                <p>Home</p>
+            </button>
+
+            <button>
+                <a href="/search">
+                    <i class="ri-search-2-line"></i>
+                    <p>Search</p>
+                </a>
+            </button>
+            <a href="/streaming">
+                <i class="ri-heart-line"></i>
+                <p>likes</p>
+            </a>
+        </button>
+        </div>
+         <div class="right">
+            <audio id="audioPlayer" controls></audio>
+            <audio src="/stream/566963b2da51097eedb014c3fbcc69da13115f35" controls></audio>
+        </div>
+
+       
+
+        <div id="localcard"></div>
+
+
+        
+    </div>
+
+    <script>
+        // Use JavaScript to dynamically set the audio source based on the musicName parameter
+        document.addEventListener('DOMContentLoaded', function () {
+          const musicName = '<%= musicName %>';
+          const audioPlayer = document.getElementById('audioPlayer');
+          audioPlayer.src = `/stream/${musicName}`;
+          audioPlayer.play();
+        });
+      </script>
+</body>
+</html>

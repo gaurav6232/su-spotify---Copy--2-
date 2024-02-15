@@ -1,0 +1,263 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #fff;
+}
+
+html,body{
+    width: 100%;
+    height: 100%;
+}
+
+#main{
+    width: 100%;
+    height: 100vh;
+  
+    display: flex;
+    gap: 10px;
+    background-color: #000000;
+}
+
+.left{
+    height: 100%;
+    width: 20%;
+    background-color: #121212;
+
+}
+
+.left button,.left a{
+    font-size: 32px;
+    color: #fff;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    width: 100%;
+    display: flex;
+    padding: 16px;
+    gap: 25px;
+    cursor: pointer;
+    align-items: center;
+    text-decoration: none;
+}
+
+.left button:hover, .left a:hover{
+    background-color: #333;
+}
+
+
+.left button p,.left a p{
+    font-size: 18px;
+}
+
+.right{
+    width: 80%;
+    min-height: 100%;
+    position: relative;
+    background-color: #121212;
+    display: flex;
+    align-items: flex-start;
+    overflow-y: auto;
+}
+
+/* //////////////////////////// */
+
+#songDetails{
+    width: 100%;
+    height: 100%;
+    position: relative;
+     
+}
+
+.songposte{
+    width: 80vw;
+    height: 70vh;
+    position: relative;
+    overflow: hidden;
+    margin-left: 7vw;
+}
+
+
+
+  .songposte img{
+    width: fit-content;
+    height: fit-content;
+    object-fit: cover;
+    object-position: center;
+    object-position: top;
+    
+}
+
+#titlecard{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 250px;
+    overflow: hidden;
+ 
+}
+
+#audioPlayer{
+    width: 80%;
+    height: 10vh;
+    margin-left: 10vw;
+    margin-bottom: -5vh;
+}
+
+#title-bottom{
+    width: 50%;
+    height: 20vh;
+    justify-content: space-between;
+    display: flex;
+    margin-left: 30px;
+     
+}
+
+#plicon i{
+    font-size: 40px;
+    color: red;
+     
+}
+
+/* /////////////////////////////// */
+ 
+
+
+
+
+.right .musics{
+    margin-top: 20px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(400px, 2fr));
+}
+.song{
+    align-items: flex-start;
+    background-color: #3f3f3f;
+    width: fit-content;
+    height: fit-content;
+    padding: 7px;
+    border-radius: 7px;
+    margin: 9px;
+    position: relative;
+
+}
+
+.song .text h5,
+.song .text p{
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+
+.song img{
+    /* height: 150px; */
+    width: 100%;
+    object-fit: cover;
+}
+
+.song .playButton{
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 80%;
+    top: 60%;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.song .playButton i{
+    color: green;
+}
+
+
+audio{
+    position: fixed;
+    bottom: 20px;
+    transform: translate(-50%,-50%);
+    left: 50%;
+}
+
+#localcard{
+    display: none;
+    width: 30vh;
+    height: 50vh;
+    z-index: 999;
+    background-color: red;
+}
+
+
+
+#audiobox{
+    width: 100%;
+    height: 10vh;
+    position: fixed;
+    overflow: hidden;
+    bottom: 6px;
+    background-color: #464646;
+    align-items: center;
+    justify-content: start;
+    display: flex;
+}
+
+#posbox{
+    width: 6vw;
+    height: 8vh;
+    margin-left: 5vw;
+    margin-top: 4px;
+    border-radius: 10px;
+    overflow: hidden;
+
+}
+
+
+#poslater{
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 2vw;
+
+}
+ 
+#posbox img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#polaicon{
+    margin-left: 14px;
+    font-size: 30px;
+}
+
+
+#reandam{
+    width: 30vw;
+    height: 80vh;
+    border-radius: 30px;
+    top: 5%;
+    left: 55%;
+    position: absolute;
+    background-color: rgba(73, 103, 103, 0.135);
+    z-index: 9999;
+    overflow-y: auto; 
+    overflow-x: hidden;
+}
+
+
+#reandam::-webkit-scrollbar{
+    display: none;
+}
+
+
+.rensong{
+    width: 80%;
+    height: 15vh;
+    margin-top: -5px;
+    margin-left: 40px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+}

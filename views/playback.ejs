@@ -1,0 +1,219 @@
+<!-- playback.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Your head content here -->
+  <title>Playback</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+</head>
+<body>
+
+    <style>
+        #audioPlayer {
+          width: 60%;
+          margin-top: 20px;
+          background-color: transparent;
+          color: transparent;
+        }
+    
+        /* Style the play button separately */
+        #audioPlayer::-webkit-media-controls-play-button {
+          background-color: #3498db; /* Change to your desired color */
+          color: #ede8e8; /* Change to your desired color */
+          border: none;
+          border-radius: 5px;
+          padding: 5px;
+        }
+    
+       
+        /* Style the underline for the audio player */
+        #audioPlayerWrapper {
+          border-bottom: 2px solid #3498db; /* Change to your desired color */
+          margin-bottom: 40px;
+        }
+      </style>
+  <div id="main">
+
+
+    <div class="left">
+        <button>
+            <a href="/">
+                <i class="ri-home-4-fill"></i>
+                <p>Home</p>
+
+            </a>
+            
+        </button>
+
+        <button>
+            <a href="/search">
+                <i class="ri-search-2-line"></i>
+                <p>Search</p>
+            </a>
+        </button>
+
+        
+        <button>
+            <a href="/streaming">
+                <i class="ri-heart-line"></i>
+                <p>likes</p>
+            </a>
+        </button>
+    </div>
+
+    <div class="right">
+         
+        <div id="songDetails">
+          
+
+            <div class="songposte">
+
+                <img id="songPoster" src="" alt="">
+            </div>
+            <div id="reandam">
+              <div id="remainingSongs">
+                   
+                  <ul style="overflow-y: auto;">
+                      <% remainingSongs.forEach(song => { %>
+                          <div class="rensong" onclick="playSongAndSetPoster('<%= song.filename %>', '<%= song.poster %>')">
+                              <a href="#">
+                                  <img style="width: 8vw; height: 10vh; object-fit: cover; " src="/poster/<%= song.poster %>" alt="<%= song.title %> Poster"><br>
+                              </a>
+                              <li style="width: 20vw; overflow: hidden; height: 10vh; ">
+                                  <strong>Title:</strong> <%= song.title %><br>
+                                  <strong>Artist:</strong> <%= song.artist %><br>
+                                  <strong>Album:</strong> <%= song.album %><br>
+                              </li>
+                          </div>
+                      <% }); %>
+                  </ul>
+              </div>
+          </div>
+          
+          
+
+          <div id="title-bottom">
+
+          
+            <div id="titlecard" class="text">
+                <h5 id="songTitle"></h5>
+                <p id="songArtist"></p>
+                <p id="songAlbum"></p>
+              </div>
+              <div id="plicon">
+                <i class="ri-heart-line"></i>
+              </div>
+            </div>
+        </div>
+
+
+
+     </div>
+
+     <div id="audiobox">
+      <div id="posbox">
+        <img id="songPo" src="" alt="">
+      </div>
+      <div id="poslater">
+        <h2 id="songT"> </h2>
+        <p id="songA"></p>
+        <p id="songAl"></p>
+      </div>
+      <div id="polaicon">
+        <i class="ri-dislike-line"></i>
+      </div>
+
+      <audio id="audioPlayer" controls></audio>
+    </div>
+
+
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const musicName = '<%= musicName %>';
+    const audioPlayer = document.getElementById('audioPlayer');
+    const songDetails = document.getElementById('songDetails');
+    const songPoster = document.getElementById('songPoster');
+    const songPo = document.getElementById('songPo');
+    const songTitle = document.getElementById('songTitle');
+    const songT = document.getElementById('songT');
+    const songArtist = document.getElementById('songArtist');
+    const songA = document.getElementById('songA');
+    const songAlbum = document.getElementById('songAlbum');
+    const songAl = document.getElementById('songAl');
+    const reandamDiv = document.querySelector('.rensong'); // Targeting the "reandam" div
+
+    // Set the audio source
+    audioPlayer.src = `/stream/${musicName}`;
+    audioPlayer.play();
+
+    // Fetch song details using an API endpoint or from a data source
+    fetch(`/api/songs/${musicName}`)
+        .then(response => response.json())
+        .then(song => {
+            // Set song details
+            songPoster.src = `/poster/${song.poster}`;
+            songTitle.textContent = song.title;
+            songT.textContent = song.title;
+            songArtist.textContent = song.artist;
+            songA.textContent = song.artist;
+            songAlbum.textContent = song.album;
+            songAl.textContent = song.album;
+            songPo.src = `/poster/${song.poster}`;
+
+            // Fetch remaining songs for random display
+            fetch(`/api/remainingSongs/${musicName}`)
+                .then(response => response.json())
+                .then(remainingSongs => {
+                    // Choose a random song from the remaining songs
+                    const randomIndex = Math.floor(Math.random() * remainingSongs.length);
+                    const randomSong = remainingSongs[randomIndex];
+
+                    // Set the random song details in the "reandam" div
+                    const randomSongElement = document.createElement('div');
+                    randomSongElement.innerHTML = `
+                        <img src="/poster/${randomSong.poster}" alt="">
+                        <div class="text">
+                            <h5>${randomSong.title}</h5>
+                            <p>${randomSong.artist}</p>
+                            <p>${randomSong.album}</p>
+                        </div>
+                    `;
+                    reandamDiv.appendChild(randomSongElement);
+                })
+                .catch(error => console.error('Error fetching remaining songs:', error));
+        })
+        .catch(error => console.error('Error fetching song details:', error));
+});
+
+
+  </script>
+
+
+<script>
+  function playSong(filename) {
+      const audioPlayer = document.getElementById('audioPlayer');
+      audioPlayer.src = `/stream/${filename}`;
+      audioPlayer.play();
+  }
+</script>
+
+<script>
+  function playSongAndSetPoster(filename, poster) {
+      const audioPlayer = document.getElementById('audioPlayer');
+      const songPoster = document.getElementById('songPoster');
+      
+      // Set the audio source and play the song
+      audioPlayer.src = `/stream/${filename}`;
+      audioPlayer.play();
+
+      // Set the poster image
+      songPoster.src = `/poster/${poster}`;
+  }
+</script>
+
+</body>
+</html>
